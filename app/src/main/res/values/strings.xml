@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">NormalImageLoader</string>
+    <string name="title_mip">加载mipmap文件夹图片</string>
+    <string name="title_single_net">加载一张网络图片</string>
+    <string name="title_mul_net">加载一批网络图片列表展示</string>
+    <string name="title_sd">加载一张本地图片</string>
+    <string name="title_gif">加载网络和本地GIF图片</string>
 </resources>

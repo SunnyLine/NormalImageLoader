@@ -2,7 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.pullein.image">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
+        android:name=".MyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -16,6 +21,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MipPicActivity"
+            android:label="@string/title_mip" />
+        <activity
+            android:name=".SingleNetPicActivity"
+            android:label="@string/title_single_net" />
+        <activity
+            android:name=".MulNetPicActivity"
+            android:label="@string/title_mul_net" />
+        <activity
+            android:name=".SDPicActivity"
+            android:label="@string/title_sd" />
+        <activity android:name=".GifActivity" android:label="@string/title_gif"/>
     </application>
 
 </manifest>
