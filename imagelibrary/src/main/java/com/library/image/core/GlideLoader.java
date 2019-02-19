@@ -16,6 +16,12 @@ import com.bumptech.glide.request.RequestOptions;
  * @date 2019/2/18
  */
 public class GlideLoader implements IImageLoaderStrategy {
+
+    @Override
+    public void configGlobalVariable(GlobalConfig config) {
+
+    }
+
     @Override
     public void showImage(ImageOptions options) {
         parserOptions(options);

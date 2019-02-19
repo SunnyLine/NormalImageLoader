@@ -16,6 +16,6 @@ public class MyApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        ImageLoader.getInstance().init(ImageLoader.TYPE_GLIDE);
+        ImageLoader.getInstance().init(ImageLoader.TYPE_GLIDE, null);
     }
 }

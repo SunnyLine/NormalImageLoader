@@ -10,6 +10,7 @@ import android.support.annotation.RawRes;
 import android.widget.ImageView;
 
 import com.library.image.core.GlideLoader;
+import com.library.image.core.GlobalConfig;
 import com.library.image.core.IImageLoaderStrategy;
 import com.library.image.core.ImageOptions;
 
@@ -47,7 +48,7 @@ public class ImageLoader {
     }
 
 
-    public void init(@Type int type) {
+    public void init(@Type int type, GlobalConfig config) {
         switch (type) {
             case ImageLoader.TYPE_GLIDE:
                 loader = new GlideLoader();
@@ -56,6 +57,7 @@ public class ImageLoader {
                 loader = new GlideLoader();
                 break;
         }
+        loader.configGlobalVariable(null);
     }
 
     public void show(String path, ImageView targetContainer) {
