@@ -1,6 +1,5 @@
 package com.pullein.image;
 
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.library.image.ImageLoader;
-import com.library.image.core.ImageOptions;
 
 import java.util.List;
 
@@ -39,10 +37,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
         MulNetPicActivity.MulPicBean mulPicBean = mList.get(i);
         myViewHolder.textView.setText(mulPicBean.getInfo());
-        ImageLoader.getInstance().show(new ImageOptions.Builder(myViewHolder.imageView, mulPicBean.getUrl())
-                .setDefaultColorId(Color.GRAY)
-                .setErrorResId(R.drawable.error)
-                .build());
+        ImageLoader.getInstance().show(mulPicBean.getUrl(), myViewHolder.imageView);
     }
 
     @Override

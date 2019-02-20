@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.library.image.ImageLoader;
+import com.library.image.core.annotation.ImageLibrary;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ImageLoader.getInstance().init(ImageLibrary.TYPE_GLIDE);
     }
 
     public void onClick(View view) {

@@ -2,8 +2,6 @@ package com.pullein.image;
 
 import android.app.Application;
 
-import com.library.image.ImageLoader;
-
 /**
  * NormalImageLoader<br>
  * describe ：
@@ -16,6 +14,6 @@ public class MyApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        ImageLoader.getInstance().init(ImageLoader.TYPE_GLIDE, null);
+
     }
 }

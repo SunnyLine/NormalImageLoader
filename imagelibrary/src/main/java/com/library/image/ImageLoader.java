@@ -5,18 +5,17 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.DrawableRes;
-import android.support.annotation.IntDef;
 import android.support.annotation.RawRes;
 import android.widget.ImageView;
 
-import com.library.image.core.GlideLoader;
 import com.library.image.core.GlobalConfig;
 import com.library.image.core.IImageLoaderStrategy;
 import com.library.image.core.ImageOptions;
+import com.library.image.core.annotation.ImageLibrary;
+import com.library.image.core.annotation.LibraryType;
+import com.library.image.core.glide.GlideLoader;
 
 import java.io.File;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 
 /**
  * NormalImageLoader<br>
@@ -27,12 +26,6 @@ import java.lang.annotation.RetentionPolicy;
  */
 public class ImageLoader {
     private final static ImageLoader imageManger = new ImageLoader();
-
-    /**
-     * Glide 加载图片
-     */
-    public final static int TYPE_GLIDE = 0x001;
-
     IImageLoaderStrategy loader;
 
     private ImageLoader() {
@@ -42,15 +35,9 @@ public class ImageLoader {
         return imageManger;
     }
 
-    @IntDef({TYPE_GLIDE})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface Type {
-    }
-
-
-    public void init(@Type int type, GlobalConfig config) {
+    public void init(@LibraryType int type) {
         switch (type) {
-            case ImageLoader.TYPE_GLIDE:
+            case ImageLibrary.TYPE_GLIDE:
                 loader = new GlideLoader();
                 break;
             default:
@@ -58,6 +45,18 @@ public class ImageLoader {
                 break;
         }
         loader.configGlobalVariable(null);
+    }
+
+    public void init(@LibraryType int type, GlobalConfig config) {
+        switch (type) {
+            case ImageLibrary.TYPE_GLIDE:
+                loader = new GlideLoader();
+                break;
+            default:
+                loader = new GlideLoader();
+                break;
+        }
+        loader.configGlobalVariable(config);
     }
 
     public void show(String path, ImageView targetContainer) {

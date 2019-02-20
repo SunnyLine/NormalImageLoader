@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.RawRes;
@@ -37,23 +36,37 @@ public class ImageOptions {
     private ImageSize imageSize;
 
     /**
+     * 跳过内存缓存，为了避免请求网络，即使设置跳过，Glide也会缓存到磁盘
+     */
+    private boolean isSkipMemoryCache;
+    /**
      * 加载错误显示图片
      */
-    private Drawable errorDrawable = null;
+    private Drawable errorDrawable;
+    private @DrawableRes
+    int errorRes;
     /**
      * 加载成功前显示图片
      */
-    private Drawable defaultDrawable = null;
+    private Drawable defaultDrawable;
+    private @DrawableRes
+    int defaultRes;
     /**
      * 加载URL为空显示图片
      */
-    private Drawable blankDrawable = null;
+    private Drawable blankDrawable;
+    private @DrawableRes
+    int blankRes;
+
     private boolean isGif;
 
     public ImageOptions(Builder builder) {
         this.errorDrawable = builder.errorDrawable;
         this.blankDrawable = builder.blankDrawable;
         this.defaultDrawable = builder.defaultDrawable;
+        this.errorRes = builder.errorRes;
+        this.defaultRes = builder.defaultRes;
+        this.blankRes = builder.blankRes;
         this.targetContainer = builder.targetContainer;
         this.path = builder.path;
         this.bitmap = builder.bitmap;
@@ -63,6 +76,63 @@ public class ImageOptions {
         this.uri = builder.uri;
         this.imageSize = builder.imageSize;
         this.isGif = builder.isGif;
+        this.isSkipMemoryCache = builder.isSkipMemoryCache;
+    }
+
+    public Drawable getErrorDrawable() {
+        return errorDrawable;
+    }
+
+    public void setErrorDrawable(Drawable errorDrawable) {
+        this.errorDrawable = errorDrawable;
+    }
+
+    public int getErrorRes() {
+        return errorRes;
+    }
+
+    public void setErrorRes(int errorRes) {
+        this.errorRes = errorRes;
+    }
+
+    public Drawable getDefaultDrawable() {
+        return defaultDrawable;
+    }
+
+    public void setDefaultDrawable(Drawable defaultDrawable) {
+        this.defaultDrawable = defaultDrawable;
+    }
+
+    public int getDefaultRes() {
+        return defaultRes;
+    }
+
+    public void setDefaultRes(int defaultRes) {
+        this.defaultRes = defaultRes;
+    }
+
+    public Drawable getBlankDrawable() {
+        return blankDrawable;
+    }
+
+    public void setBlankDrawable(Drawable blankDrawable) {
+        this.blankDrawable = blankDrawable;
+    }
+
+    public int getBlankRes() {
+        return blankRes;
+    }
+
+    public void setBlankRes(int blankRes) {
+        this.blankRes = blankRes;
+    }
+
+    public boolean isSkipMemoryCache() {
+        return isSkipMemoryCache;
+    }
+
+    public void setSkipMemoryCache(boolean skipMemoryCache) {
+        this.isSkipMemoryCache = skipMemoryCache;
     }
 
     public ImageView getTargetContainer() {
@@ -125,7 +195,8 @@ public class ImageOptions {
         return resId;
     }
 
-    public void setResId(int resId) {
+    public void setResId(@RawRes
+                         @DrawableRes int resId) {
         this.resId = resId;
     }
 
@@ -137,34 +208,16 @@ public class ImageOptions {
         this.uri = uri;
     }
 
-    public Drawable getErrorDrawable() {
-        return errorDrawable;
-    }
-
-    public void setErrorDrawable(Drawable errorDrawable) {
-        this.errorDrawable = errorDrawable;
-    }
-
-    public Drawable getDefaultDrawable() {
-        return defaultDrawable;
-    }
-
-    public void setDefaultDrawable(Drawable defaultDrawable) {
-        this.defaultDrawable = defaultDrawable;
-    }
-
-    public Drawable getBlankDrawable() {
-        return blankDrawable;
-    }
-
-    public void setBlankDrawable(Drawable blankDrawable) {
-        this.blankDrawable = blankDrawable;
-    }
-
     public final static class Builder {
         private Drawable errorDrawable = null;
+        private @DrawableRes
+        int errorRes = -1;
         private Drawable defaultDrawable = null;
+        private @DrawableRes
+        int defaultRes = -1;
         private Drawable blankDrawable = null;
+        private @DrawableRes
+        int blankRes = -1;
         private ImageView targetContainer;
         private String path = null;
         private Bitmap bitmap = null;
@@ -173,6 +226,10 @@ public class ImageOptions {
         private int resId = -1;
         private Uri uri = null;
         private ImageSize imageSize = null;
+        /**
+         * 跳过内存缓存，为了避免请求网络，即使设置跳过，Glide也会缓存到磁盘
+         */
+        private boolean isSkipMemoryCache = false;
         private boolean isGif = false;
 
         public Builder(ImageView targetContainer, Uri uri) {
@@ -206,6 +263,11 @@ public class ImageOptions {
             this.resId = resId;
         }
 
+        public Builder setSkipMemoryCache(boolean skipMemoryCache) {
+            this.isSkipMemoryCache = skipMemoryCache;
+            return this;
+        }
+
         public Builder setGif(boolean gif) {
             isGif = gif;
             return this;
@@ -217,44 +279,32 @@ public class ImageOptions {
         }
 
         public Builder setErrorResId(@DrawableRes int errorResId) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                errorDrawable = targetContainer.getResources().getDrawable(errorResId, null);
-            } else {
-                errorDrawable = targetContainer.getResources().getDrawable(errorResId);
-            }
+            this.errorRes = errorResId;
             return this;
         }
 
         public Builder setErrorColorId(@ColorInt int colorId) {
-            errorDrawable = new ColorDrawable(colorId);
+            this.errorDrawable = new ColorDrawable(colorId);
             return this;
         }
 
         public Builder setDefaultResId(@DrawableRes int defaultResId) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                defaultDrawable = targetContainer.getResources().getDrawable(defaultResId, null);
-            } else {
-                defaultDrawable = targetContainer.getResources().getDrawable(defaultResId);
-            }
+            this.defaultRes = defaultResId;
             return this;
         }
 
         public Builder setDefaultColorId(@ColorInt int defaultColorId) {
-            defaultDrawable = new ColorDrawable(defaultColorId);
+            this.defaultDrawable = new ColorDrawable(defaultColorId);
             return this;
         }
 
         public Builder setBlankResId(@DrawableRes int blankResId) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                blankDrawable = targetContainer.getResources().getDrawable(blankResId, null);
-            } else {
-                blankDrawable = targetContainer.getResources().getDrawable(blankResId);
-            }
+            this.blankRes = blankResId;
             return this;
         }
 
         public Builder setBlankColorId(@ColorInt int blankColorId) {
-            blankDrawable = new ColorDrawable(blankColorId);
+            this.blankDrawable = new ColorDrawable(blankColorId);
             return this;
         }
 

@@ -1,6 +1,7 @@
 package com.library.image.core;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 
 /**
  * NormalImageLoader<br>
@@ -16,7 +17,7 @@ public interface IImageLoaderStrategy {
      *
      * @param config 全局配置信息
      */
-    void configGlobalVariable(GlobalConfig config);
+    void configGlobalVariable(@Nullable GlobalConfig config);
 
     /**
      * 展示图片
