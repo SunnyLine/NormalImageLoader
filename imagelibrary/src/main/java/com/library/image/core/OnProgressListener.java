@@ -8,4 +8,6 @@ package com.library.image.core;
  * @date 2019/2/20
  */
 public interface OnProgressListener {
+
+    void onProgress(int progress);
 }
