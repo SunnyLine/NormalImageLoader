@@ -60,6 +60,8 @@ public class ImageOptions {
 
     private boolean isGif;
 
+    private OnProgressListener onProgressListener;
+
     public ImageOptions(Builder builder) {
         this.errorDrawable = builder.errorDrawable;
         this.blankDrawable = builder.blankDrawable;
@@ -77,6 +79,14 @@ public class ImageOptions {
         this.imageSize = builder.imageSize;
         this.isGif = builder.isGif;
         this.isSkipMemoryCache = builder.isSkipMemoryCache;
+    }
+
+    public OnProgressListener getOnProgressListener() {
+        return onProgressListener;
+    }
+
+    public void setOnProgressListener(OnProgressListener onProgressListener) {
+        this.onProgressListener = onProgressListener;
     }
 
     public Drawable getErrorDrawable() {
@@ -231,6 +241,10 @@ public class ImageOptions {
          */
         private boolean isSkipMemoryCache = false;
         private boolean isGif = false;
+        /**
+         * 下载进度回调
+         */
+        private OnProgressListener onProgressListener;
 
         public Builder(ImageView targetContainer, Uri uri) {
             this.targetContainer = targetContainer;
@@ -261,6 +275,11 @@ public class ImageOptions {
         @DrawableRes int resId) {
             this.targetContainer = targetContainer;
             this.resId = resId;
+        }
+
+        public Builder setOnProgressListener(OnProgressListener onProgressListener) {
+            this.onProgressListener = onProgressListener;
+            return this;
         }
 
         public Builder setSkipMemoryCache(boolean skipMemoryCache) {

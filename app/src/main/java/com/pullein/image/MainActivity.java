@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.button8:
                 Toast.makeText(this, "图片处理(圆角，高斯模糊)暂时未完成", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.button9:
+                break;
             default:
                 break;
         }
