@@ -1,5 +1,9 @@
 package com.library.image.core.glide;
 
+import android.util.Log;
+
+import com.library.image.core.OnProgressListener;
+
 import java.io.IOException;
 
 import okhttp3.Interceptor;
@@ -20,6 +24,11 @@ public class GlideProgressInterceptor implements Interceptor {
         Request request = chain.request();
         Response response = chain.proceed(request);
         ResponseBody body = response.body();
-        return response.newBuilder().body(new GlideProgressResponseBody(body, null)).build();
+        return response.newBuilder().body(new GlideProgressResponseBody(body, new OnProgressListener() {
+            @Override
+            public void onProgress(int progress) {
+                Log.d("===============", "progress:" + progress);
+            }
+        })).build();
     }
 }

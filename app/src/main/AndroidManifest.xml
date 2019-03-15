@@ -14,6 +14,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.library.image.core.glide.CustomAppGlideModule"
+            android:value="com.bumptech.glide.module.AppGlideModule" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,7 +37,10 @@
         <activity
             android:name=".SDPicActivity"
             android:label="@string/title_sd" />
-        <activity android:name=".GifActivity" android:label="@string/title_gif"/>
+        <activity
+            android:name=".GifActivity"
+            android:label="@string/title_gif" />
+        <activity android:name=".ProgressPicActivity"></activity>
     </application>
 
 </manifest>
