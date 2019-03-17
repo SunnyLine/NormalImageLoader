@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import com.library.image.core.GlobalConfig;
 import com.library.image.core.IImageLoaderStrategy;
 import com.library.image.core.ImageOptions;
+import com.library.image.core.OnProgressListener;
 import com.library.image.core.annotation.ImageLibrary;
 import com.library.image.core.annotation.LibraryType;
 import com.library.image.core.glide.GlideLoader;
@@ -36,24 +37,19 @@ public class ImageLoader {
     }
 
     public void init(@LibraryType int type) {
-        switch (type) {
-            case ImageLibrary.TYPE_GLIDE:
-                loader = new GlideLoader();
-                break;
-            default:
-                loader = new GlideLoader();
-                break;
-        }
-        loader.configGlobalVariable(null);
+        init(type, null);
     }
 
     public void init(@LibraryType int type, GlobalConfig config) {
+        if (loader != null) {
+            throw new RuntimeException("ImageLoader have been initialized !!!");
+        }
         switch (type) {
             case ImageLibrary.TYPE_GLIDE:
-                loader = new GlideLoader();
+                loader = GlideLoader.getInstance();
                 break;
             default:
-                loader = new GlideLoader();
+                loader = GlideLoader.getInstance();
                 break;
         }
         loader.configGlobalVariable(config);
@@ -62,6 +58,12 @@ public class ImageLoader {
     public void show(String path, ImageView targetContainer) {
         if (loader != null) {
             loader.showImage(new ImageOptions.Builder(targetContainer, path).build());
+        }
+    }
+
+    public void show(String path, ImageView targetContainer, OnProgressListener listener) {
+        if (loader != null) {
+            loader.showImage(new ImageOptions.Builder(targetContainer, path).setOnProgressListener(listener).build());
         }
     }
 

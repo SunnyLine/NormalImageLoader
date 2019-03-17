@@ -2,6 +2,7 @@ package com.library.image.core.glide;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
@@ -35,6 +36,6 @@ public class CustomAppGlideModule extends AppGlideModule {
     public void registerComponents(@NonNull Context context, @NonNull Glide glide, @NonNull Registry registry) {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.addInterceptor(new GlideProgressInterceptor());
-        registry.replace(GlideUrl.class,InputStream.class,new OkHttpUrlLoader.Factory(builder.build()));
+        registry.replace(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory(builder.build()));
     }
 }

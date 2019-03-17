@@ -79,6 +79,7 @@ public class ImageOptions {
         this.imageSize = builder.imageSize;
         this.isGif = builder.isGif;
         this.isSkipMemoryCache = builder.isSkipMemoryCache;
+        this.onProgressListener = builder.onProgressListener;
     }
 
     public OnProgressListener getOnProgressListener() {

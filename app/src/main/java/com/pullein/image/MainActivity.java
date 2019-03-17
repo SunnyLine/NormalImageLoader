@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "图片处理(圆角，高斯模糊)暂时未完成", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.button9:
+                startActivity(new Intent(this, ProgressPicActivity.class));
                 break;
             default:
                 break;

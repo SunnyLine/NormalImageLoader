@@ -1,9 +1,5 @@
 package com.library.image.core.glide;
 
-import android.util.Log;
-
-import com.library.image.core.OnProgressListener;
-
 import java.io.IOException;
 
 import okhttp3.Interceptor;
@@ -19,16 +15,14 @@ import okhttp3.ResponseBody;
  * @date 2019/2/21
  */
 public class GlideProgressInterceptor implements Interceptor {
+
+
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
+        String url = request.url().toString();
         Response response = chain.proceed(request);
         ResponseBody body = response.body();
-        return response.newBuilder().body(new GlideProgressResponseBody(body, new OnProgressListener() {
-            @Override
-            public void onProgress(int progress) {
-                Log.d("===============", "progress:" + progress);
-            }
-        })).build();
+        return response.newBuilder().body(new GlideProgressResponseBody(body, url)).build();
     }
 }

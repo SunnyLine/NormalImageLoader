@@ -24,11 +24,14 @@ public class GlideProgressResponseBody extends ResponseBody {
 
     private ResponseBody responseBody;
 
+    private String url;
+
     private OnProgressListener listener;
 
-    public GlideProgressResponseBody(ResponseBody responseBody,OnProgressListener listener) {
+    public GlideProgressResponseBody(ResponseBody responseBody, String url) {
         this.responseBody = responseBody;
-        this.listener = listener;
+        this.url = url;
+        this.listener = GlideLoader.getInstance().getProgressListener(url);
     }
 
     @Override
@@ -68,12 +71,14 @@ public class GlideProgressResponseBody extends ResponseBody {
             } else {
                 totalBytesRead += bytesRead;
             }
-            int progress = (int) (100f * totalBytesRead / fullLength);
+            int progress = (int) (100 * totalBytesRead / fullLength);
             if (listener != null && progress != currentProgress) {
                 listener.onProgress(progress);
             }
             if (listener != null && totalBytesRead == fullLength) {
+                GlideLoader.getInstance().removeProgressListener(url);
                 listener = null;
+                url = null;
             }
             currentProgress = progress;
             return bytesRead;

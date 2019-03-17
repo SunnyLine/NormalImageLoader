@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.library.image.ImageLoader;
+import com.library.image.core.OnProgressListener;
 
 import java.util.List;
 
@@ -37,7 +38,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
         MulNetPicActivity.MulPicBean mulPicBean = mList.get(i);
         myViewHolder.textView.setText(mulPicBean.getInfo());
-        ImageLoader.getInstance().show(mulPicBean.getUrl(), myViewHolder.imageView);
+        ImageLoader.getInstance().show(mulPicBean.getUrl(), myViewHolder.imageView, new OnProgressListener() {
+            @Override
+            public void onProgress(int progress) {
+                myViewHolder.itemView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        myViewHolder.textView3.setText("下载进度:" + progress + "/100");
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -50,10 +61,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         TextView textView;
         ImageView imageView;
+        TextView textView3;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             textView = itemView.findViewById(R.id.textView);
+            textView3 = itemView.findViewById(R.id.textView3);
             imageView = itemView.findViewById(R.id.imageView);
         }
     }

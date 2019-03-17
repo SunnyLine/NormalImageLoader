@@ -3,6 +3,7 @@ package com.library.image.core.glide;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
@@ -11,7 +12,11 @@ import com.bumptech.glide.request.RequestOptions;
 import com.library.image.core.GlobalConfig;
 import com.library.image.core.IImageLoaderStrategy;
 import com.library.image.core.ImageOptions;
+import com.library.image.core.OnProgressListener;
 import com.library.image.core.annotation.DiskCacheStrategy;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * NormalImageLoader<br>
@@ -23,6 +28,25 @@ import com.library.image.core.annotation.DiskCacheStrategy;
 public class GlideLoader implements IImageLoaderStrategy {
 
     private GlobalConfig mGlobalConfig;
+    private static GlideLoader loader = new GlideLoader();
+    private Map<String, OnProgressListener> mProgressListeners = new HashMap<>();
+
+    private GlideLoader() {
+    }
+
+    public static GlideLoader getInstance() {
+        return loader;
+    }
+
+    public OnProgressListener getProgressListener(String url) {
+        return mProgressListeners.get(url);
+    }
+
+    public void removeProgressListener(String url) {
+        if (!TextUtils.isEmpty(url)) {
+            mProgressListeners.remove(url);
+        }
+    }
 
     @Override
     public void configGlobalVariable(@Nullable GlobalConfig config) {
@@ -60,6 +84,9 @@ public class GlideLoader implements IImageLoaderStrategy {
             manager.asGif();
         } else {
             manager.asDrawable();
+        }
+        if (!TextUtils.isEmpty(options.getPath()) && options.getOnProgressListener() != null) {
+            mProgressListeners.put(options.getPath(), options.getOnProgressListener());
         }
         RequestBuilder<Drawable> requestBuilder = null;
         if (options.getBitmap() != null) {
