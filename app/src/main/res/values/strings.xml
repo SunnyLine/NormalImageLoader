@@ -5,4 +5,5 @@
     <string name="title_mul_net">加载一批网络图片列表展示</string>
     <string name="title_sd">加载一张本地图片</string>
     <string name="title_gif">加载网络和本地GIF图片</string>
+    <string name="title_progress">加载带进度条的图片</string>
 </resources>

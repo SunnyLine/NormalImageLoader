@@ -9,6 +9,8 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.RawRes;
 import android.widget.ImageView;
 
+import com.library.image.core.annotation.ShapeType;
+
 import java.io.File;
 
 /**
@@ -60,6 +62,32 @@ public class ImageOptions {
 
     private boolean isGif;
 
+
+    private @ShapeType
+    int shape;
+    /**
+     * 描边颜色
+     */
+    private @ColorInt
+    int stokeColorId;
+    /**
+     * 描边宽度
+     */
+    private int stokeWidth;
+    /**
+     * 矩形的角度
+     */
+    private int corners;
+
+    /**
+     * 透明度0-100,100不透明，50半透明
+     */
+    private int transparency;
+    /**
+     * 高斯模糊度0-100
+     */
+    private int fuzzy;
+
     private OnProgressListener onProgressListener;
 
     public ImageOptions(Builder builder) {
@@ -80,6 +108,12 @@ public class ImageOptions {
         this.isGif = builder.isGif;
         this.isSkipMemoryCache = builder.isSkipMemoryCache;
         this.onProgressListener = builder.onProgressListener;
+        this.shape = builder.shape;
+        this.stokeColorId = builder.stokeColorId;
+        this.stokeWidth = builder.stokeWidth;
+        this.corners = builder.corners;
+        this.transparency = builder.transparency;
+        this.fuzzy = builder.fuzzy;
     }
 
     public OnProgressListener getOnProgressListener() {
@@ -88,6 +122,54 @@ public class ImageOptions {
 
     public void setOnProgressListener(OnProgressListener onProgressListener) {
         this.onProgressListener = onProgressListener;
+    }
+
+    public int getShape() {
+        return shape;
+    }
+
+    public void setShape(@ShapeType int shape) {
+        this.shape = shape;
+    }
+
+    public int getStokeColorId() {
+        return stokeColorId;
+    }
+
+    public void setStokeColorId(@ColorInt int stokeColorId) {
+        this.stokeColorId = stokeColorId;
+    }
+
+    public int getStokeWidth() {
+        return stokeWidth;
+    }
+
+    public void setStokeWidth(int stokeWidth) {
+        this.stokeWidth = stokeWidth;
+    }
+
+    public int getCorners() {
+        return corners;
+    }
+
+    public void setCorners(int corners) {
+        this.corners = corners;
+    }
+
+    public int getTransparency() {
+        return transparency;
+    }
+
+    public void setTransparency(int transparency) {
+        this.transparency = transparency;
+    }
+
+    public int getFuzzy() {
+        return fuzzy;
+    }
+
+    public void setFuzzy(int fuzzy) {
+        this.fuzzy = fuzzy;
     }
 
     public Drawable getErrorDrawable() {
@@ -247,6 +329,31 @@ public class ImageOptions {
          */
         private OnProgressListener onProgressListener;
 
+        private @ShapeType
+        int shape;
+        /**
+         * 描边颜色
+         */
+        private @ColorInt
+        int stokeColorId;
+        /**
+         * 描边宽度
+         */
+        private int stokeWidth;
+        /**
+         * 矩形的角度
+         */
+        private int corners;
+
+        /**
+         * 透明度0-100,100不透明，50半透明
+         */
+        private int transparency;
+        /**
+         * 高斯模糊度0-100
+         */
+        private int fuzzy;
+
         public Builder(ImageView targetContainer, Uri uri) {
             this.targetContainer = targetContainer;
             this.uri = uri;
@@ -276,6 +383,36 @@ public class ImageOptions {
         @DrawableRes int resId) {
             this.targetContainer = targetContainer;
             this.resId = resId;
+        }
+
+        public Builder setShape(@ShapeType int shape) {
+            this.shape = shape;
+            return this;
+        }
+
+        public Builder setStokeColorId(@ColorInt int stokeColorId) {
+            this.stokeColorId = stokeColorId;
+            return this;
+        }
+
+        public Builder setStokeWidth(int stokeWidth) {
+            this.stokeWidth = stokeWidth;
+            return this;
+        }
+
+        public Builder setCorners(int corners) {
+            this.corners = corners;
+            return this;
+        }
+
+        public Builder setTransparency(int transparency) {
+            this.transparency = transparency;
+            return this;
+        }
+
+        public Builder setFuzzy(int fuzzy) {
+            this.fuzzy = fuzzy;
+            return this;
         }
 
         public Builder setOnProgressListener(OnProgressListener onProgressListener) {
