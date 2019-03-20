@@ -8,11 +8,14 @@ import android.text.TextUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.library.image.core.GlobalConfig;
 import com.library.image.core.IImageLoaderStrategy;
 import com.library.image.core.ImageOptions;
 import com.library.image.core.OnProgressListener;
+import com.library.image.core.Shape;
 import com.library.image.core.annotation.DiskCacheStrategy;
 
 import java.util.HashMap;
@@ -146,6 +149,10 @@ public class GlideLoader implements IImageLoaderStrategy {
             default:
                 requestOptions.diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.AUTOMATIC);
                 break;
+        }
+        Shape shape = options.getShape();
+        if (shape != null) {
+            requestBuilder.apply(RequestOptions.bitmapTransform(shape.getShape() == Shape.RING ? new CircleCrop():new RoundedCorners(shape.getCorners())));
         }
         //设置是否跳过缓存
         boolean isSkipMemoryCache = (mGlobalConfig != null && mGlobalConfig.isSkipMemoryCache()) || options.isSkipMemoryCache();

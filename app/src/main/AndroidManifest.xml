@@ -42,7 +42,10 @@
             android:label="@string/title_gif" />
         <activity
             android:name=".ProgressPicActivity"
-            android:label="@string/title_progress"/>
+            android:label="@string/title_progress" />
+        <activity
+            android:name=".ShapeActivity"
+            android:label="@string/title_shape" />
     </application>
 
 </manifest>

@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, GifActivity.class));
                 break;
             case R.id.button8:
-                Toast.makeText(this, "图片处理(圆角，高斯模糊)暂时未完成", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, ShapeActivity.class));
                 break;
             case R.id.button9:
                 startActivity(new Intent(this, ProgressPicActivity.class));

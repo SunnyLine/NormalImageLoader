@@ -5,12 +5,13 @@ import android.support.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import static android.graphics.drawable.GradientDrawable.RECTANGLE;
-import static android.graphics.drawable.GradientDrawable.RING;
+import static com.library.image.core.Shape.RECTANGLE;
+import static com.library.image.core.Shape.RING;
+
 
 /**
  * NormalImageLoader<br>
- * describe ：
+ * describe ：矩形形状
  *
  * @author xugang
  * @date 2019/3/18
